@@ -5,7 +5,9 @@
 <div class="flex flex-col items-center h-full">
   <div class="w-lg my-3">
     <div>
-      <h1 class="text-lg text-gray-900">Articles Homepage</h1>
+      <h1 class="text-lg text-gray-900">
+        Welcome to our super awesome articles!
+      </h1>
     </div>
   </div>
 
