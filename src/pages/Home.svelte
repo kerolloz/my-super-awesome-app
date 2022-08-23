@@ -2,10 +2,14 @@
   import ArticlesViewer from "../lib/ArticlesViewer.svelte";
 </script>
 
-<div>
-  <h1 class="my-4 text-bold text-2xl text-center">
-    Welcome to my super awesome app
-  </h1>
+<div class="flex flex-col items-center h-full">
+  <div class="w-lg my-3">
+    <div>
+      <h1 class="text-lg text-gray-900">Articles Homepage</h1>
+    </div>
+  </div>
 
-  <ArticlesViewer />
+  <div class="mx-auto my-auto">
+    <ArticlesViewer />
+  </div>
 </div>
