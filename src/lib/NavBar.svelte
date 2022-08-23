@@ -10,7 +10,7 @@
     <div class="flex items-center">
       <div class="text-xl font-semibold ">
         <Link to="/">
-          <h1>My Super Awesome App</h1>
+          <h1 class="hover:text-slate-200">My Super Awesome App</h1>
         </Link>
       </div>
     </div>
