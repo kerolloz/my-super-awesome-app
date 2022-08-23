@@ -17,7 +17,11 @@
         <div>No articles yet</div>
       {/if}
     {:catch error}
-      <div>Something went wrong: Couldn't fetch articles</div>
+      <p class="text-red-600 text-xl text-center">
+        Something went wrong.
+        <br /> Couldn't fetch articles!<br />
+        <span class="text-gray-500 text-sm">{error.message}</span>
+      </p>
     {/await}
   </div>
 </div>
