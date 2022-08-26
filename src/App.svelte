@@ -9,7 +9,7 @@
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 </script>
 
-<div class="h-screen flex flex-col justify-between">
+<div class="min-h-screen h-full flex flex-col justify-between">
   <Router {url}>
     <NavBar />
     <main class="h-full md:m-0 mt-3 mx-3">
