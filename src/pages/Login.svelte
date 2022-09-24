@@ -8,6 +8,7 @@
   import api from "../services/api";
   import { handlerProxy } from "../services/handlerProxy";
   import { navigate } from "svelte-routing";
+  import FormError from "../lib/FormError.svelte";
 
   let responseError = "";
 
@@ -90,11 +91,7 @@
       </div>
       <!-- error red rectangle -->
       {#if responseError.length}
-        <div
-          class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 text-sm"
-        >
-          {responseError}
-        </div>
+        <FormError {responseError} />
       {:else}
         <div class="flex flex-col">
           <span

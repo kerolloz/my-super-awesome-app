@@ -1,12 +1,15 @@
 <script lang="ts">
   import { createForm } from "svelte-forms-lib";
-  import { Link, navigate } from "svelte-routing";
+  import { Link } from "svelte-routing";
   import { tokenStore } from "../auth";
   import Error from "../lib/Error.svelte";
+  import FormErrorResponse from "../lib/FormErrorResponse.svelte";
   import FormInput from "../lib/FormInput.svelte";
   import { userSignupSchema } from "../schemas/user.schema";
   import api from "../services/api";
   import { handlerProxy } from "../services/handlerProxy";
+
+  let errorResponse = null;
 
   const { form, errors, handleChange, handleSubmit, isValid } = createForm({
     initialValues: {
@@ -16,7 +19,20 @@
     },
     validationSchema: userSignupSchema,
     onSubmit: (values) => {
-      api.users.signup(values).then(console.log).catch(console.error);
+      // clear errors
+      errorResponse = null;
+
+      api.users
+        .signup(values)
+        .then(console.log)
+        .catch((err) => {
+          const response = err.response.data;
+          if (api.errors.isErrorResponse(response)) {
+            errorResponse = response;
+          } else {
+            errorResponse = response.message;
+          }
+        });
     },
   });
   const changeProxy = handlerProxy(handleChange);
@@ -85,17 +101,20 @@
           Signup
         </button>
       </div>
-
-      <div class="flex flex-col">
-        <span
-          class="inline-block align-baseline font-bold text-center text-sm text-gray-700"
-        >
-          Already have an account?<br />
-          <Link class="text-blue-500 hover:text-blue-700 " to="login"
-            >Login</Link
+      {#if errorResponse}
+        <FormErrorResponse {errorResponse} />
+      {:else}
+        <div class="flex flex-col">
+          <span
+            class="inline-block align-baseline font-bold text-center text-sm text-gray-700"
           >
-        </span>
-      </div>
+            Already have an account?<br />
+            <Link class="text-blue-500 hover:text-blue-700 " to="login"
+              >Login</Link
+            >
+          </span>
+        </div>
+      {/if}
     </form>
   </div>
 </div>

@@ -2,7 +2,6 @@ import axios from "axios";
 import { writable } from "svelte/store";
 
 export const removeToken = () => {
-  axios.defaults.headers.common["Authorization"] = null;
   localStorage.removeItem("token");
   tokenStore.set(null);
 }
@@ -13,7 +12,6 @@ export const removeUser = () => {
 }
 
 export const saveToken = (token: string) => {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   localStorage.setItem("token", token);
   tokenStore.set(token);
 };
