@@ -1,5 +1,7 @@
 # My Super Awesome App
 
+<small>Backend repo here [kerolloz/my-super-awesome-api](https://github.com/kerolloz/my-super-awesome-api)</small>
+
 > **Warning**
 > This is app is used for demonstration purposes only.
 
