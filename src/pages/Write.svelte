@@ -9,14 +9,17 @@
   import { handlerProxy } from "../services/handlerProxy";
 
   let responseError = "";
+  let files;
 
   const { form, errors, handleChange, handleSubmit, isValid } = createForm({
     initialValues: {
       title: "",
       content: "",
+      image: null,
     },
     validationSchema: articleSchema,
     onSubmit: (values) => {
+      if (files) values.image = files[0];
       api.articles
         .create(values)
         .then((response) => {
@@ -25,7 +28,10 @@
           }
           window.location.href = "/";
         })
-        .catch((err) => alert(JSON.stringify(err)));
+        .catch((err) => {
+          alert("Something went wrong!");
+          console.error(err);
+        });
     },
   });
   const changeProxy = handlerProxy(handleChange);
@@ -84,6 +90,7 @@
           name="image"
           id="image"
           accept="image/png, image/jpeg"
+          bind:files
         />
       </div>
 
