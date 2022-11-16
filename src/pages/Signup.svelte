@@ -24,7 +24,9 @@
 
       api.users
         .signup(values)
-        .then(console.log)
+        .then(({ data }) => {
+          alert(data.message);
+        })
         .catch((err) => {
           const response = err.response.data;
           if (api.errors.isErrorResponse(response)) {
