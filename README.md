@@ -9,7 +9,8 @@ This is the frontend repository for _my super awesome app_. It's built with Svel
 
 ## Usage
 
-You need a `.env` file with the following variables defined. You can use the `.env.example` file as a template.
+You need a `.env` file with the following variables defined.
+You can use the `.env.example` file as a template.
 
 ```bash
 VITE_API_BASE_URL=my-super-awesome-domain.com

@@ -5,6 +5,7 @@
   import Home from "./pages/Home.svelte";
   import Login from "./pages/Login.svelte";
   import Signup from "./pages/Signup.svelte";
+  import Verify from "./pages/Verify.svelte";
   import Write from "./pages/Write.svelte";
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 </script>
@@ -24,6 +25,9 @@
       </Route>
       <Route path="write">
         <Write />
+      </Route>
+      <Route path="verify">
+        <Verify />
       </Route>
     </main>
     <Footer />

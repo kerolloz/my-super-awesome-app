@@ -31,6 +31,10 @@ interface UserLoginDTO {
   password: string;
 }
 
+interface UserVeriyTO {
+  code: string;
+}
+
 export interface IArticle {
   id: string;
   title: string;
@@ -67,6 +71,7 @@ export default {
       axios.post("/login", { email, password }),
     signup: ({ name, email, password }: UserSignupDTO) =>
       axios.post("/signup", { name, email, password }),
+    verify: ({ code }: UserVeriyTO) => axios.post("/verify", { code }),
   },
   errors: {
     isErrorResponse: (error) => {
@@ -75,7 +80,9 @@ export default {
       return hasMessage && hasErorrsArr;
     },
     parseErrors(body: ErrorResponse) {
-      return body.errors.map((e) => `${e.label.split(".")[1] || e.label}: ${e.message}`);
+      return body.errors.map(
+        (e) => `${e.label.split(".")[1] || e.label}: ${e.message}`
+      );
     },
   },
 };
