@@ -1,4 +1,4 @@
-# My Super Awesome App
+# My Super Awesome App <a target="_blank" href="https://kounter.tk"><img align="right" src="https://t.ly/fH1S" /></a>
 
 > **Warning**  
 > This is app is used for demonstration purposes only.
