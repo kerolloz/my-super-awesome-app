@@ -31,7 +31,7 @@ interface UserLoginDTO {
   password: string;
 }
 
-interface UserVeriyTO {
+interface UserVerifyTO {
   code: string;
 }
 
@@ -71,13 +71,13 @@ export default {
       axios.post("/login", { email, password }),
     signup: ({ name, email, password }: UserSignupDTO) =>
       axios.post("/signup", { name, email, password }),
-    verify: ({ code }: UserVeriyTO) => axios.post("/verify", { code }),
+    verify: ({ code }: UserVerifyTO) => axios.post("/verify", { code }),
   },
   errors: {
     isErrorResponse: (error) => {
       const hasMessage = error.message && typeof error.message === "string";
-      const hasErorrsArr = error.errors && Array.isArray(error.errors);
-      return hasMessage && hasErorrsArr;
+      const hasErrorsArr = error.errors && Array.isArray(error.errors);
+      return hasMessage && hasErrorsArr;
     },
     parseErrors(body: ErrorResponse) {
       return body.errors.map(
