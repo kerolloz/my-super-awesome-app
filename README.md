@@ -1,9 +1,9 @@
-# My Super Awesome App <a target="_blank" href="https://kounter.tk"><img align="right" src="https://t.ly/fH1S" /></a>
+# My Super Awesome App <a target="_blank" href="https://kounter.kerolloz.dev"><img align="right" src="https://t.ly/jtURJ" /></a>
 
 > **Warning**  
-> This is app is used for demonstration purposes only.
+> This app is used for demonstration purposes only.
 
-This is the frontend repository for _my super awesome app_. It's built with Svelte and Tailwind CSS. I mainly created it as a toy app to demonestrate a full-stack app deployment. Here's the tutorial [link](https://blog.kero.cf/free-deployment-for-your-full-stack-web-application).
+This is the frontend repository for _my super awesome app_. It's built with Svelte and Tailwind CSS. I mainly created it as a toy app to demonstrate a full-stack app deployment. Here's the tutorial [link](https://blog.kero.cf/free-deployment-for-your-full-stack-web-application).
 
 <sup>Backend repo 👉 [kerolloz/my-super-awesome-api](https://github.com/kerolloz/my-super-awesome-api)</sup>
 
