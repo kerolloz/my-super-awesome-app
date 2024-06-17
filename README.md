@@ -1,4 +1,4 @@
-# My Super Awesome App <a target="_blank" href="https://kounter.kerolloz.dev"><img align="right" src="https://t.ly/jtURJ" /></a>
+# My Super Awesome App <a target="_blank" href="https://kounter.kerolloz.dev"><img align="right" src="https://kounter.kerolloz.dev/badge/kerolloz.my-super-awesome-app?style=for-the-badge&color=567890&label=Views" /></a>
 
 > **Warning**  
 > This app is used for demonstration purposes only.
