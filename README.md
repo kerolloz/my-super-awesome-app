@@ -19,5 +19,5 @@ VITE_API_BASE_URL=my-super-awesome-domain.com
 ```bash
 npm i            # install required dependencies
 npm run dev      # start development server
-npm run build    # build for production
+npm run build    # build for production => the build is at `dist` directory 
 ```
