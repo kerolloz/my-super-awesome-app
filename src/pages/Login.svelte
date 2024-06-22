@@ -9,34 +9,37 @@
   import { handlerProxy } from "../services/handlerProxy";
   import { navigate } from "svelte-routing";
   import FormError from "../lib/FormError.svelte";
+  import FormButton from "../lib/FormButton.svelte";
 
   let responseError = "";
 
-  const { form, errors, handleChange, handleSubmit, isValid } = createForm({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: userLoginSchema,
-    onSubmit: (values) => {
-      api.users
-        .login(values)
-        .then((response) => {
-          const { token, user } = response.data;
-          if (response.status === 200) {
-            console.log("OK response", response.data, response.status);
-            saveToken(token);
-            saveUser(user);
-            navigate("/"); // go to home page
-          } else {
-            responseError = response.data.message;
-          }
-        })
-        .catch((error) => {
-          responseError = error.response.data.message;
-        });
-    },
-  });
+  const { form, errors, handleChange, handleSubmit, isValid, isSubmitting } =
+    createForm({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: userLoginSchema,
+      onSubmit: (values) => {
+        responseError = "";
+        return api.users
+          .login(values)
+          .then((response) => {
+            const { token, user } = response.data;
+            if (response.status === 200) {
+              console.log("OK response", response.data, response.status);
+              saveToken(token);
+              saveUser(user);
+              navigate("/"); // go to home page
+            } else {
+              responseError = response.data.message;
+            }
+          })
+          .catch((error) => {
+            responseError = error.response.data.message;
+          });
+      },
+    });
   const changeProxy = handlerProxy(handleChange);
 
   $: if ($tokenStore) {
@@ -81,13 +84,11 @@
         {/if}
       </div>
       <div class="flex items-center justify-between my-3">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-400 disabled:cursor-not-allowed"
+        <FormButton
           type="submit"
-          disabled={!$isValid}
+          disabled={!$isValid || $isSubmitting}
+          loading={$isSubmitting}>Login</FormButton
         >
-          Login
-        </button>
       </div>
       <!-- error red rectangle -->
       {#if responseError.length}

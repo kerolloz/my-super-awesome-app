@@ -7,33 +7,35 @@
   import articleSchema from "../schemas/article.schema";
   import api from "../services/api";
   import { handlerProxy } from "../services/handlerProxy";
+  import FormButton from "../lib/FormButton.svelte";
 
   let responseError = "";
   let files;
 
-  const { form, errors, handleChange, handleSubmit, isValid } = createForm({
-    initialValues: {
-      title: "",
-      content: "",
-      image: null,
-    },
-    validationSchema: articleSchema,
-    onSubmit: (values) => {
-      if (files) values.image = files[0];
-      api.articles
-        .create(values)
-        .then((response) => {
-          if (response.status === 201) {
-            alert("Article created!");
-          }
-          window.location.href = "/";
-        })
-        .catch((err) => {
-          alert("Something went wrong!");
-          console.error(err);
-        });
-    },
-  });
+  const { form, errors, handleChange, handleSubmit, isValid, isSubmitting } =
+    createForm({
+      initialValues: {
+        title: "",
+        content: "",
+        image: null,
+      },
+      validationSchema: articleSchema,
+      onSubmit: (values) => {
+        if (files) values.image = files[0];
+        return api.articles
+          .create(values)
+          .then((response) => {
+            if (response.status === 201) {
+              alert("Article created!");
+            }
+            window.location.href = "/";
+          })
+          .catch((err) => {
+            alert("Something went wrong!");
+            console.error(err);
+          });
+      },
+    });
   const changeProxy = handlerProxy(handleChange);
 
   $: if (!$tokenStore) {
@@ -95,10 +97,10 @@
       </div>
 
       <div class="flex items-center justify-between mt-3">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-400 disabled:cursor-not-allowed"
+        <FormButton
           type="submit"
-          disabled={!$isValid}>Publish</button
+          disabled={!$isValid || $isSubmitting}
+          loading={$isSubmitting}>Publish</FormButton
         >
       </div>
 

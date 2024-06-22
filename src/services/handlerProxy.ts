@@ -1,6 +1,4 @@
-export const handlerProxy = (handler) => {
-  return (e) => {
-    const { target } = e.detail;
-    handler({ target });
-  };
+export const handlerProxy = (handler) => (e) => {
+  const { target } = e.detail;
+  handler({ target });
 };

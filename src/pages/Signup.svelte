@@ -6,37 +6,39 @@
   import FormErrorResponse from "../lib/FormErrorResponse.svelte";
   import FormInput from "../lib/FormInput.svelte";
   import { userSignupSchema } from "../schemas/user.schema";
-  import api from "../services/api";
+  import api, { type ErrorResponse } from "../services/api";
   import { handlerProxy } from "../services/handlerProxy";
+  import FormButton from "../lib/FormButton.svelte";
+  import { AxiosError } from "axios";
 
-  let errorResponse = null;
+  let errorResponse: ErrorResponse | null = null;
 
-  const { form, errors, handleChange, handleSubmit, isValid } = createForm({
-    initialValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-    validationSchema: userSignupSchema,
-    onSubmit: (values) => {
-      // clear errors
-      errorResponse = null;
-
-      api.users
-        .signup(values)
-        .then(({ data }) => {
-          alert(data.message);
-        })
-        .catch((err) => {
-          const response = err.response.data;
-          if (api.errors.isErrorResponse(response)) {
-            errorResponse = response;
-          } else {
-            errorResponse = response.message;
-          }
-        });
-    },
-  });
+  const { form, errors, handleChange, handleSubmit, isValid, isSubmitting } =
+    createForm({
+      initialValues: {
+        name: "",
+        email: "",
+        password: "",
+      },
+      validationSchema: userSignupSchema,
+      onSubmit: (values) => {
+        // clear errors
+        errorResponse = null;
+        return api.users
+          .signup(values)
+          .then(({ data }) => alert(data.message))
+          .catch((err) => {
+            if (err instanceof AxiosError) {
+              errorResponse = err.response?.data ?? {
+                message: "An error occurred",
+              };
+            } else {
+              console.log(err);
+              errorResponse = { message: "Something went wrong" };
+            }
+          });
+      },
+    });
   const changeProxy = handlerProxy(handleChange);
 
   $: if ($tokenStore) {
@@ -86,7 +88,6 @@
           type="password"
           name="password"
           label="Password"
-          minLength="8"
           bind:value={$form.password}
           on:input={changeProxy}
         />
@@ -95,13 +96,13 @@
         {/if}
       </div>
       <div class="flex items-center justify-between my-3">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:bg-gray-400 disabled:cursor-not-allowed"
+        <FormButton
           type="submit"
-          disabled={!$isValid}
+          disabled={!$isValid || $isSubmitting}
+          loading={$isSubmitting}
         >
           Signup
-        </button>
+        </FormButton>
       </div>
       {#if errorResponse}
         <FormErrorResponse {errorResponse} />

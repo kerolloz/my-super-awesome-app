@@ -11,7 +11,7 @@ tokenStore.subscribe((v) => {
 
 export interface ErrorResponse {
   message: string;
-  errors: { label: string; type: string; message: string }[];
+  errors?: { label: string; type: string; message: string }[];
 }
 
 interface IUser {
@@ -74,13 +74,8 @@ export default {
     verify: ({ code }: UserVerifyTO) => axios.post("/verify", { code }),
   },
   errors: {
-    isErrorResponse: (error) => {
-      const hasMessage = error.message && typeof error.message === "string";
-      const hasErrorsArr = error.errors && Array.isArray(error.errors);
-      return hasMessage && hasErrorsArr;
-    },
     parseErrors(body: ErrorResponse) {
-      return body.errors.map(
+      return body.errors?.map(
         (e) => `${e.label.split(".")[1] || e.label}: ${e.message}`
       );
     },
