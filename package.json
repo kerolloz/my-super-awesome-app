@@ -10,7 +10,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.4.3",
+    "@sveltejs/vite-plugin-svelte": "^6.2.0",
     "@tsconfig/svelte": "^5.0.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.31",
@@ -21,7 +21,7 @@
     "tailwindcss": "^3.3.3",
     "tslib": "^2.6.1",
     "typescript": "^5.1.6",
-    "vite": "^4.5.9"
+    "vite": "^7.1.5"
   },
   "dependencies": {
     "axios": "^1.7.4",
